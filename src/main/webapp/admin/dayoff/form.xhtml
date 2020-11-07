@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form>
+        <h:commandButton value="Formu Temizle" rendered="#{loginBean.hasPermission('dayoff', 'C') and loginBean.hasPermission('dayoff', 'U')}" action="#{announcementBean.clearForm()}" styleClass="btn btn-warning btn-xs btn-block rounded-0"/>
+        <h:outputLabel value="Başlangıç Tarihi"/>
+        <div class="form-group">                
+            <h:inputText id="fieldStart" required="true" converterMessage="25-04-1997 06:00:00 şeklinde giriniz!" requiredMessage="Başlangıç Tarihi Giriniz !" styleClass="form-control" value="#{dayOffBean.dayOff.startingDate}">
+                <f:convertDateTime pattern="dd-MM-yyyy HH:mm" />
+            </h:inputText>
+            
+            <h:message for="fieldStart" styleClass="text-danger"/>
+        </div> 
+
+        <h:outputLabel value="Bitiş Tarihi"/>
+        <div class="form-group">
+            <h:inputText id="fieldEnd" required="true" converterMessage="25-04-1997 06:00:00 şeklinde giriniz!" requiredMessage="Bitiş Tarihi Giriniz!"  styleClass="form-control" value="#{dayOffBean.dayOff.endDate}">
+                   <f:convertDateTime pattern="dd-MM-yyyy HH:mm" />
+            </h:inputText>
+            <h:message for="fieldEnd" styleClass="text-danger"/>
+        </div> 
+
+        <h:outputLabel value="İzinli Kullanıcı"/>
+        <div class="form-group">
+            <h:selectOneMenu id="fieldUser" value="#{dayOffBean.dayOff.user}" styleClass="form-control" converter="genericConverter">
+                <f:selectItems value="#{moduleUserBean.moduleUserList}" var="user" itemValue="#{user}" itemLabel="#{user.name} #{user.surname}"/>
+            </h:selectOneMenu>
+        </div>         
+        <h:commandButton rendered="#{loginBean.hasPermission('dayoff', 'C') and dayOffBean.dayOff.id==null}" action="#{dayOffBean.create()}" styleClass="btn btn-primary btn-block rounded-0" value="Kaydet"/>
+        <h:commandButton rendered="#{dayOffBean.dayOff.id != null}" action="#{dayOffBean.update()}" styleClass="btn btn-primary btn-block rounded-0" value="Güncelle"/>
+    </h:form>
+</ui:composition>

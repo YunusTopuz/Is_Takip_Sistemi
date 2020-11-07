@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:form>
+        
+        <h:commandButton value="Formu Temizle" rendered="#{loginBean.hasPermission('modulegroup', 'C') and loginBean.hasPermission('modulegroup', 'U')}" action="#{moduleGroupBean.clearForm()}" styleClass="btn btn-warning btn-xs btn-block rounded-0"/>
+        <h:outputLabel value="Grup Adı"/>
+        <div class="form-group">                
+            <h:inputText id="fieldName" required="true" requiredMessage="Grup Adı Giriniz !" styleClass="form-control" value="#{moduleGroupBean.moduleGroup.groupName}"/>
+            <h:message for="fieldName" styleClass="text-danger"/>
+        </div>        
+        <h:commandButton rendered="#{loginBean.hasPermission('modulegroup', 'C') and moduleGroupBean.moduleGroup.id==null}" action="#{moduleGroupBean.create()}" styleClass="btn btn-primary btn-block rounded-0" value="Kaydet"/>
+        <h:commandButton rendered="#{moduleGroupBean.moduleGroup.id != null}" action="#{moduleGroupBean.update()}" styleClass="btn btn-primary btn-block rounded-0" value="Güncelle"/>
+    </h:form>
+</ui:composition>

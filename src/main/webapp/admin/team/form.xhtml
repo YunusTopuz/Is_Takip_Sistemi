@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:form>
+        <h:commandButton value="Formu Temizle" rendered="#{loginBean.hasPermission('team', 'C') and loginBean.hasPermission('team', 'U')}" action="#{teamBean.clearForm()}" styleClass="btn btn-warning btn-xs btn-block rounded-0"/>        
+        <h:outputLabel value="Takım Adı"/>
+        <div class="form-group">                
+            <h:inputText id="fieldTeam" required="true" requiredMessage="Takım Adı Giriniz !" styleClass="form-control" value="#{teamBean.team.teamName}"/>
+            <h:message for="fieldTeam" styleClass="text-danger"/>
+        </div> 
+       
+        <h:commandButton rendered="#{loginBean.hasPermission('team', 'C') and teamBean.team.id==null}"  action="#{teamBean.create()}" styleClass="btn btn-primary btn-block rounded-0" value="Kaydet"/>
+        <h:commandButton rendered="#{teamBean.team.id != null}" action="#{teamBean.update()}" styleClass="btn btn-primary btn-block rounded-0" value="Güncelle"/>
+    </h:form>
+</ui:composition>

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">     
+    <h:dataTable id="team-table" rendered="#{loginBean.hasPermission('team', 'R')}" value="#{teamBean.teamList}" var="a" styleClass="table table-stripped">
+        <h:column>
+            <f:facet name="header" >Id</f:facet>
+                #{a.id}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Takım Adı </f:facet>
+                #{a.teamName}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">İşlem</f:facet>
+            <h:form>
+                <h:commandButton rendered="#{loginBean.hasPermission('team', 'U')}" action="#{teamBean.updateForm(a)}" value="Güncelle" styleClass="btn btn-primary"/>
+                <h:commandButton rendered="#{loginBean.hasPermission('team', 'D')}" action="#{teamBean.delete(a)}" value="Sil" styleClass="btn btn-danger"/>
+            </h:form>
+        </h:column>
+    </h:dataTable>
+
+
+</ui:composition>
+

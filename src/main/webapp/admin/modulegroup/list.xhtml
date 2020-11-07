@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">     
+    <h:dataTable id="group-table" rendered="#{loginBean.hasPermission('modulegroup', 'R')}" value="#{moduleGroupBean.moduleGroupList}" var="a" styleClass="table table-stripped">
+        <h:column>
+            <f:facet name="header" >Id</f:facet>
+                #{a.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Grup Adı </f:facet>
+                #{a.groupName}
+        </h:column>
+    
+        <h:column>
+            <f:facet name="header">İşlem</f:facet>
+            <h:form>
+                <h:commandButton rendered="#{loginBean.hasPermission('modulegroup', 'U')}" action="#{moduleGroupBean.updateForm(a)}" value="Güncelle" styleClass="btn btn-primary"/>
+                <h:commandButton rendered="#{loginBean.hasPermission('modulegroup', 'D')}" action="#{moduleGroupBean.delete(a)}" value="Sil" styleClass="btn btn-danger"/>
+            </h:form>
+        </h:column>
+    </h:dataTable>
+</ui:composition>
+

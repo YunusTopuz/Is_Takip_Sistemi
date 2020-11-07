@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form>        
+        <h:commandButton value="Formu Temizle" rendered="#{loginBean.hasPermission('task', 'C') and loginBean.hasPermission('task', 'U')}" action="#{taskBean.clearForm()}" styleClass="btn btn-warning btn-xs btn-block rounded-0"/>        
+        <h:outputLabel value="Görev Adı"/>
+        <div class="form-group">                
+            <h:inputText id="fieldTaskName" required="true" requiredMessage="Görev Adı Giriniz!" styleClass="form-control" value="#{taskBean.task.taskName}"/>
+            <h:message for="fieldTaskName" styleClass="text-danger"/>
+        </div> 
+        <h:outputLabel value="Açıklama"/>
+        <div class="form-group">
+            <h:inputText id="fieldDescription" requiredMessage="Açıklama Giriniz!" required="true" styleClass="form-control" value="#{taskBean.task.description}"/>
+            <h:message for="fieldDescription" styleClass="text-danger"/>
+        </div>      
+        <h:outputLabel value="Başlangıç Tarihi"/>
+        <div class="form-group">
+            <h:inputText id="fieldStarting" requiredMessage="Başlangıç Tarihi Giriniz!" converterMessage="25-04-1997 06:00:00 şeklinde giriniz!" required="true" styleClass="form-control" value="#{taskBean.task.startingDate}">                   
+                <f:convertDateTime pattern="dd-MM-yyyy HH:mm" />
+            </h:inputText>
+            <h:message for="fieldStarting" styleClass="text-danger"/>
+        </div>                   
+        <h:outputLabel value="Bitiş Tarihi"/>
+        <div class="form-group">
+            <h:inputText id="fieldFinish" requiredMessage="Bitiş Tarihi Giriniz!" converterMessage="25-04-1997 06:00:00 şeklinde giriniz!" required="true" styleClass="form-control" value="#{taskBean.task.endDate}">
+                <f:convertDateTime pattern="dd-MM-yyyy HH:mm"/>
+            </h:inputText>
+            <h:message for="fieldFinish" styleClass="text-danger"/>
+        </div>                
+        <h:outputLabel value="Görevden Sorumlu Ekip"/>
+        <div class="form-group">
+            <h:selectManyListbox id="fieldTaskTeam" value="#{taskBean.task.teams}" styleClass="form-control" converter="genericConverter">
+                <f:selectItems value="#{teamBean.teamList}" var="tm" itemValue="#{tm}" itemLabel="#{tm.teamName}"/>
+            </h:selectManyListbox>
+        </div> 
+
+        <h:commandButton rendered="#{loginBean.hasPermission('task', 'C') and taskBean.task.id==null}" action="#{taskBean.create()}" styleClass="btn btn-primary btn-block rounded-0" value="Kaydet"/>
+        <h:commandButton rendered="#{taskBean.task.id != null}" action="#{taskBean.update()}" styleClass="btn btn-primary btn-block rounded-0" value="Güncelle"/>
+    </h:form>
+</ui:composition>

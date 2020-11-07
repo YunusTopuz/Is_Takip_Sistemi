@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">     
+    <h:dataTable id="user-table" rendered="#{loginBean.hasPermission('moduleuser', 'R')}" value="#{moduleUserBean.moduleUserList}" var="a" styleClass="table table-stripped">
+
+        <h:column>           
+            <f:facet name="header" >#</f:facet>
+            <h:form> 
+                <h:commandLink  action="#{moduleUserBean.updateFormTwo(a)}"  value="[Ayrıntılar]" styleClass="d-lg-table-cell" />           
+            </h:form>
+        </h:column>
+
+
+        <h:column>
+            <f:facet name="header" >Id</f:facet>
+                #{a.id}
+        </h:column>                
+        <h:column>
+            <f:facet name="header">Mail</f:facet>
+                #{a.mail}
+        </h:column>        
+        <h:column>
+            <f:facet name="header">Şifre</f:facet>
+                #{a.password}
+        </h:column>        
+        <h:column>
+            <f:facet name="header">Ad</f:facet>
+                #{a.name}
+        </h:column>        
+        <h:column>
+            <f:facet name="header">Soyad</f:facet>
+                #{a.surname}
+        </h:column>        
+        <h:column>
+            <f:facet name="header">Bulundugu grup</f:facet>
+                #{a.moduleGroups}
+        </h:column>                   
+        <h:column>
+            <f:facet name="header">bulundugu ekip</f:facet>
+                #{a.teams}
+        </h:column>                                                     
+        <h:column>
+            <f:facet name="header">İşlem</f:facet>
+            <h:form>
+                <h:commandButton rendered="#{loginBean.hasPermission('moduleuser', 'U')}" action="#{moduleUserBean.updateForm(a)}" value="Güncelle" styleClass="btn btn-primary"/>
+                <h:commandButton rendered="#{loginBean.hasPermission('moduleuser', 'D')}" action="#{moduleUserBean.delete(a)}" value="Sil" styleClass="btn btn-danger"/>
+            </h:form>
+        </h:column>
+    </h:dataTable>
+</ui:composition>
+

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:form>
+        <h:commandButton value="Formu Temizle" rendered="#{loginBean.hasPermission('announcement', 'C') and loginBean.hasPermission('announcement', 'U')}" action="#{announcementBean.clearForm()}" styleClass="btn btn-warning btn-xs btn-block rounded-0"/>
+        <h:outputLabel value="Başlık"/>
+        <div class="form-group">                
+            <h:inputText id="fieldTitle" required="true" requiredMessage="Başlık alanı gerekli !" styleClass="form-control" value="#{announcementBean.announcement.title}"/>
+            <h:message for="fieldTitle" styleClass="text-danger"/>
+        </div> 
+        <h:outputLabel value="İçerik"/>
+        <div class="form-group">
+            <h:inputTextarea id="fieldText" requiredMessage="İçerik alanı gerekli !" required="true" styleClass="form-control" value="#{announcementBean.announcement.text}"/>
+            <h:message for="fieldText" styleClass="text-danger"/>
+        </div> 
+        <h:commandButton rendered="#{loginBean.hasPermission('announcement', 'C') and announcementBean.announcement.id==null}" action="#{announcementBean.create()}" styleClass="btn btn-primary btn-block rounded-0" value="Kaydet"/>
+        <h:commandButton rendered="#{announcementBean.announcement.id != null}" action="#{announcementBean.update()}" styleClass="btn btn-primary btn-block rounded-0" value="Güncelle"/>
+    </h:form>
+</ui:composition>

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form>       
+        <h:commandButton value="Formu Temizle" rendered="#{loginBean.hasPermission('moduleprivileges', 'C') and loginBean.hasPermission('moduleprivileges', 'U')}" action="#{modulePriviligesBean.clearForm()}" styleClass="btn btn-warning btn-xs btn-block rounded-0"/>
+        <h:outputLabel value="Grup"/>
+        <div class="form-group">
+            <h:selectOneMenu id="fieldPrivGroup" value="#{modulePriviligesBean.modulePrivileges.group}" styleClass="form-control" converter="genericConverter">
+                <f:selectItems value="#{moduleGroupBean.moduleGroupList}" var="group" itemValue="#{group}" itemLabel="#{group.groupName}"/>
+            </h:selectOneMenu>
+        </div> 
+        <h:outputLabel value="Create"/>
+        <div class="form-group">                           
+            <h:selectBooleanCheckbox value="#{modulePriviligesBean.modulePrivileges.c}" />
+        </div> 
+        <h:outputLabel value="Read"/>
+        <div class="form-group">                
+            <h:selectBooleanCheckbox value="#{modulePriviligesBean.modulePrivileges.r}" />
+        </div> 
+        <h:outputLabel value="Update"/>
+        <div class="form-group">                
+            <h:selectBooleanCheckbox value="#{modulePriviligesBean.modulePrivileges.u}" />
+        </div> 
+        <h:outputLabel value="Delete"/>
+        <div class="form-group">                          
+            <h:selectBooleanCheckbox value="#{modulePriviligesBean.modulePrivileges.d}" />
+        </div>         
+        <h:outputLabel value="Module"/>
+        <div class="form-group">                          
+            <h:inputText value="#{modulePriviligesBean.modulePrivileges.module}" id="fieldModule" required="true" requiredMessage="Gerekli Alan!" styleClass="form-control" />
+            <h:message for="fieldModule" styleClass="text-danger"/>
+        </div> 
+        <h:commandButton rendered="#{loginBean.hasPermission('moduleprivileges', 'C') and modulePriviligesBean.modulePrivileges.id==null}" action="#{modulePriviligesBean.create()}" styleClass="btn btn-primary btn-block rounded-0" value="Kaydet"/>
+        <h:commandButton rendered="#{modulePriviligesBean.modulePrivileges.id != null}" action="#{modulePriviligesBean.update()}" styleClass="btn btn-primary btn-block rounded-0" value="Güncelle"/>
+    </h:form>
+</ui:composition>

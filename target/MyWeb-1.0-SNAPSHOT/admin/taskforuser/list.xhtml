@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">  
+    <h:dataTable id="task-table" rendered="#{loginBean.hasPermission('task', 'R')}" value="#{taskBean.taskList}" var="a" styleClass="table table-stripped">
+
+        <h:column>           
+            <f:facet name="header" >#</f:facet>
+            <h:form> 
+                <h:commandLink onclick="$('.modal').modal('show')"  action="#{taskBean.updateFormTwo(a)}"  value="[Ayrıntılar]" styleClass="d-lg-table-cell" >
+                    <f:ajax  listener="#{taskBean.showed(a)}" execute="@this" render="task-modal" />
+                </h:commandLink>
+            </h:form>
+        </h:column>
+
+        <h:column>
+            <f:facet name="header" >Id</f:facet>
+                #{a.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Görev Adı</f:facet>
+                #{a.taskName}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Açıklama </f:facet>
+                #{a.description}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Baslangıç Tarihi</f:facet>
+                #{a.startingDate}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Bitiş Tarihi</f:facet>
+                #{a.endDate}
+        </h:column>   
+        <h:column>
+            <f:facet name="header">Sorumlu Ekip</f:facet>
+                #{a.teams}
+        </h:column>  
+        <h:column>
+            <f:facet name="header">Sorumlu Kullanıcı</f:facet>
+                #{a.moduleUsers}
+        </h:column>  
+        <h:column>
+            <f:facet name="header">Olusturan Kullanıcı</f:facet>
+                #{a.user.name} #{a.user.surname}
+        </h:column>
+        <h:column>
+            <f:facet name="header">İşlem</f:facet>
+            <h:form>
+                <h:commandButton rendered="#{loginBean.hasPermission('task', 'U')}" action="#{taskBean.updateForm(a)}" value="Güncelle" styleClass="btn btn-primary"/>
+                <h:commandButton rendered="#{loginBean.hasPermission('task', 'D')}" action="#{taskBean.delete(a)}" value="Sil" styleClass="btn btn-danger"/>
+            </h:form>
+        </h:column>
+    </h:dataTable>
+
+
+
+    <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <h:panelGroup layout="block" class="modal-content" id="task-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ayrıntılar</h5>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Görev Detayları : <br />
+                        <b> Id               : </b>#{taskBean.taskTwo.id}<br />
+                        <b> Görev Adı        : </b>#{taskBean.taskTwo.taskName}<br />
+                        <b> Açıklama         : </b>#{taskBean.taskTwo.description}<br />
+                        <b> Başlangıç Tarihi : </b>#{taskBean.taskTwo.startingDate}<br />
+                        <b> Bitiş Tarihi     : </b>#{taskBean.taskTwo.endDate}<br />
+                        <b> Görev Veren      : </b>#{taskBean.taskTwo.user}<br />
+                        <b> Sorumlular       : </b>#{taskBean.taskTwo.moduleUsers}<br />
+                        <b> Görüldü Tarihi   : </b>#{taskBean.taskUser.viewedDate}<br />
+
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <h:form>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </h:form>
+                </div>
+            </h:panelGroup>
+        </div>
+    </div>
+
+
+
+
+
+</ui:composition>
+

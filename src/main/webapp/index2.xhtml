@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/frontend/index.xhtml">
+            <ui:define name="content"> 
+                <div class="container">
+                    <div class="row">
+                        <div class="col col-md-6 col-sm-12">
+                            <h1>Duyurular</h1>
+                            <h:dataTable id="announcement-table" value="#{announcementBean.announcementList}" var="a" styleClass="table table-stripped">                         
+                                <h:column>                                    
+                                        #{a.title}
+                                </h:column>                                               
+                            </h:dataTable>
+                        </div>
+                        <div class="col col-md-6 col-sm-12">
+                            <ui:include src="/login.xhtml" />
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>  
+    </h:body>
+</html>
+

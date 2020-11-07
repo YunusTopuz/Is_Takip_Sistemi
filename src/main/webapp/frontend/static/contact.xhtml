@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/frontend/template/layout.xhtml"> 
+            <ui:define name="content">
+                <div class="container">
+                    <div class="row">                                          
+                        <div class="col col-md-6 col-sm-12">
+                            <h1>İletişim</h1>
+                            <h:form> 
+                                <h:outputLabel value="Mail Adresiniz"/>
+                                <div class="form-group">                
+                                    <h:inputText id="fieldContactMail" required="true" requiredMessage="Gerekli Alan!" styleClass="form-control"/>
+                                    <h:message for="fieldContactMail" styleClass="text-danger"/>
+                                </div>
+                                <h:outputLabel value="Mesajınız"/>
+                                <div class="form-group">                
+                                    <h:inputText id="fieldContactText" required="true" requiredMessage="Gerekli Alan!" styleClass="form-control"/>
+                                    <h:message for="fieldContactText" styleClass="text-danger"/>
+                                </div>
+                                <h:commandButton styleClass="btn btn-sm btn-block rounded-0" value="Gönder"/>
+                            </h:form>
+                        </div>
+
+                        <div class="col col-md-6 col-sm-12">
+                            <ui:include src="/login.xhtml" />
+                        </div>
+                    </div>
+                </div>
+
+            </ui:define>        
+        </ui:composition>
+    </h:body>
+</html>
+

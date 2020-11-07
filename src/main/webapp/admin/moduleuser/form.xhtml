@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form>
+        <h:commandButton value="Formu Temizle" rendered="#{loginBean.hasPermission('moduleuser', 'C') and loginBean.hasPermission('moduleuser', 'U')}" action="#{moduleUserBean.clearForm()}" styleClass="btn btn-warning btn-xs btn-block rounded-0"/>
+        <h:outputLabel value="Mail"/>
+        <div class="form-group">                
+            <h:inputText id="fieldMail" required="true" requiredMessage="Mail Giriniz!" styleClass="form-control" value="#{moduleUserBean.moduleUser.mail}"/>
+            <h:message for="fieldMail" styleClass="text-danger"/>
+        </div> 
+
+        <h:outputLabel value="Şifre"/>
+        <div class="form-group">                
+            <h:inputText id="fieldPassword" required="true" requiredMessage="Sifre Giriniz!" styleClass="form-control" value="#{moduleUserBean.moduleUser.password}"/>
+            <h:message for="fieldPassword" styleClass="text-danger"/>
+        </div> 
+
+        <h:outputLabel value="Ad"/>
+        <div class="form-group">                
+            <h:inputText id="fieldName" required="true" requiredMessage="Ad Giriniz!" styleClass="form-control" value="#{moduleUserBean.moduleUser.name}"/>
+            <h:message for="fieldName" styleClass="text-danger"/>
+        </div> 
+
+        <h:outputLabel value="Soyad"/>
+        <div class="form-group">                
+            <h:inputText id="fieldSurname" required="true" requiredMessage="Soyad Giriniz!" styleClass="form-control" value="#{moduleUserBean.moduleUser.surname}"/>
+            <h:message for="fieldSurname" styleClass="text-danger"/>
+        </div> 
+
+        <h:outputLabel value="Kullanıcı Grubu"/>
+        <div class="form-group">
+            <h:selectManyListbox id="fieldUserGroup" value="#{moduleUserBean.moduleUser.moduleGroups}" styleClass="form-control" converter="genericConverter">
+                <f:selectItems value="#{moduleGroupBean.moduleGroupList}" var="group" itemValue="#{group}" itemLabel="#{group.groupName}"/>
+            </h:selectManyListbox>
+        </div> 
+        
+        <h:outputLabel value="Bulunduğu Ekip"/>
+        <div class="form-group">
+            <h:selectManyListbox id="fieldUserTeam" value="#{moduleUserBean.moduleUser.teams}" styleClass="form-control" converter="genericConverter">
+                <f:selectItems value="#{teamBean.teamList}" var="team" itemValue="#{team}" itemLabel="#{team.teamName}"/>
+            </h:selectManyListbox>
+        </div> 
+
+        <h:commandButton rendered="#{loginBean.hasPermission('moduleuser', 'C') and moduleUserBean.moduleUser.id==null}" action="#{moduleUserBean.create()}" styleClass="btn btn-primary btn-block rounded-0" value="Kaydet"/>
+        <h:commandButton rendered="#{moduleUserBean.moduleUser.id != null}" action="#{moduleUserBean.update()}" styleClass="btn btn-primary btn-block rounded-0" value="Güncelle"/>
+    </h:form>
+</ui:composition>
